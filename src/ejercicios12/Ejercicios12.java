@@ -63,13 +63,13 @@ public class Ejercicios12 {
 
         do {
             seleccion = "";
-            System.out.println("**********************");
-            System.out.println("*1. comprobar nombre *");
-            System.out.println("*2. comprobar nombre *");
-            System.out.println("*3. comprobar nombre *");
-            System.out.println("*4. comprobar nombre *");
-            System.out.println("*0. Salir            *");
-            System.out.println("**********************");
+            System.out.println("***********************");
+            System.out.println("*1. Comprobar nombre  *");
+            System.out.println("*2. Borrar nombre     *");
+            System.out.println("*3. Borrar contiene   *");
+            System.out.println("*4. Mostrar colección *");
+            System.out.println("*0. Salir             *");
+            System.out.println("***********************");
             String n;
             seleccion = sc.nextLine();
             switch(seleccion){
@@ -94,7 +94,8 @@ public class Ejercicios12 {
                 case "3":
                     System.out.println("inserte la cadena que deben conter los elementos a borrar.");
                     n = sc.nextLine();
-                    int count = 0;
+                    eliminarStringContiene2(n);
+                    System.out.println(c);
                     break;
                 case "4":
                     System.out.println(c);
@@ -124,8 +125,21 @@ public class Ejercicios12 {
         } while (!n.equals("final"));
     }
     
-    private static void borrarContiene(String cadena){
-        
+    private static int eliminarStringContiene(String s){
+        java.util.Iterator<String> it = c.iterator();
+        int eliminados = 0;
+        while (it.hasNext()) {
+            String next = it.next();
+            if(next.contains(s)){
+                it.remove();
+                eliminados++;
+            }            
+        }
+        return eliminados;
+    }
+    
+    private static boolean eliminarStringContiene2(String s){
+        return c.removeIf(elemento -> elemento.contains(s));
     }
     
     private static void parte2(){
@@ -152,7 +166,9 @@ public class Ejercicios12 {
             System.out.println("\nMedia: " + calcMedia());
             System.out.println("Mínimo: " + minimo());
             System.out.println("Máximo: " + maximo());
-            System.out.println("\nTras Limpieza: \n" + notas);
+            
+            System.out.println("\nEliminadas " + eliminarSuspensos() + " notas");
+            System.out.println(notas);
             System.out.println("\nMedia: " + calcMedia());
             System.out.println("Mínimo: " + minimo());
             System.out.println("Máximo: " + maximo());            
@@ -190,6 +206,7 @@ public class Ejercicios12 {
     }
     
     private static int eliminarSuspensos(){
+        //notas.removeIf(nota -> nota < 5);  
         int eliminados = 0;
         java.util.Iterator<Integer> it = notas.iterator();
         while(it.hasNext()){
